@@ -1,4 +1,4 @@
-import { Ore } from './types/types';
+import { Ore } from '../types/types';
 
 export default class Vein {
   private name: number = Math.random();

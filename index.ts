@@ -1,6 +1,8 @@
 import * as readline from 'readline';
-import Bag from './src/bag';
-import Vein from './src/vein';
+import veinRL from './src/readline/veinReadline';
+import bagRL from './src/readline/bagReadline';
+import Bag from './src/classes/bag';
+import Vein from './src/classes/vein';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -10,45 +12,23 @@ const rl = readline.createInterface({
 const bag = new Bag();
 let vein = new Vein();
 
-(function ask() {
+(function indexRL() {
   rl.question(
-    'Type:\n 1 to mine,\n 2 to change veins,\n 3 to smelt,\n 4 to see your ores,\n 5 to see your ingots,\n 6 to see your value,\n 7 to exit...\n ',
+    'Type:\n 1 for vein options,\n 2 for bag options,\n 3 to exit...\n ',
     (res) => {
       switch (Number(res)) {
         case 1:
-          bag.addOre = vein.createOre();
-          bag.getOres.forEach((ore) => console.log(ore));
-          ask();
+          veinRL(rl, indexRL, vein, bag);
           break;
         case 2:
-          vein = new Vein();
-          bag.addOre = vein.createOre();
-          bag.getOres.forEach((ore) => console.log(ore));
-          ask();
+          bagRL(rl, indexRL, bag);
           break;
         case 3:
-          bag.smelt();
-          bag.getIngots.forEach((ingot) => console.log(ingot));
-          ask();
-          break;
-        case 4:
-          bag.getOres.forEach((ore) => console.log(ore));
-          ask();
-          break;
-        case 5:
-          bag.getIngots.forEach((ingot) => console.log(ingot));
-          ask();
-          break;
-        case 6:
-          console.log(bag.getValue);
-          ask();
-          break;
-        case 7:
           rl.close();
           break;
         default:
           console.log('Sorry, that is not a proper choice');
-          ask();
+          indexRL();
       }
     },
   );
